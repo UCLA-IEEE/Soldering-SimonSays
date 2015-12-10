@@ -10,74 +10,74 @@ static bool button_pressed;
 
 ISR(PCINT0_vect)        // interrupt service routine
 {              // called when PCINT0 changes state
-	_delay_ms(DEBOUNCE_TIME_MS);
-	if (PINA & BUTTON_2)
-		last_button = BUTTON_2;
-	if (PINA & BUTTON_3)
-		last_button = BUTTON_3;	
-	if (PINA & BUTTON_4)
-		last_button = BUTTON_4;
-	
-	button_pressed = true;
+    _delay_ms(DEBOUNCE_TIME_MS);
+    if (PINA & BUTTON_2)
+        last_button = BUTTON_2;
+    if (PINA & BUTTON_3)
+        last_button = BUTTON_3;
+    if (PINA & BUTTON_4)
+        last_button = BUTTON_4;
 
-	GIFR |= (1<<PCIF0);
+    button_pressed = true;
+
+    GIFR |= (1<<PCIF0);
 }
 
 ISR(PCINT1_vect) {
-	_delay_ms(DEBOUNCE_TIME_MS);
-	if (PINB & BUTTON_1)
-		last_button = BUTTON_1;
-	button_pressed = true;
-	
-	GIFR |= (1<<PCIF1);
+    _delay_ms(DEBOUNCE_TIME_MS);
+    if (PINB & BUTTON_1)
+        last_button = BUTTON_1;
+    button_pressed = true;
+
+    GIFR |= (1<<PCIF1);
 }
 
 void input_init(void) {
-	button_pressed = false;
+    button_pressed = false;
 
-	DDRA   |= LED_2 | LED_3 | LED_4;
-	DDRB   |= LED_1;
-	
-	DDRA   &= ~(POT | BUTTON_2 | BUTTON_3 | BUTTON_4);
-	DDRB   &= ~BUTTON_1; 
-	PORTA  &= ~(POT | BUTTON_2 | BUTTON_3 | BUTTON_4);
-	PORTB  &= ~BUTTON_1;
-	
-	PCMSK0 |= (1<<PCINT7) | (1<<PCINT4) | (1<<PCINT3);
-	PCMSK1 |= (1<<PCINT9);
-	GIMSK  |= (1<<PCIE0)  | (1<<PCIE1);
-	
-	DIDR0 |= ADC0D;
+    DDRA   |= LED_2 | LED_3 | LED_4;
+    DDRB   |= LED_1;
+
+    DDRA   &= ~(POT | BUTTON_2 | BUTTON_3 | BUTTON_4);
+    DDRB   &= ~BUTTON_1;
+    PORTA  &= ~(POT | BUTTON_2 | BUTTON_3 | BUTTON_4);
+    PORTB  &= ~BUTTON_1;
+
+    PCMSK0 |= (1<<PCINT7) | (1<<PCINT4) | (1<<PCINT3);
+    PCMSK1 |= (1<<PCINT9);
+    GIMSK  |= (1<<PCIE0)  | (1<<PCIE1);
+
+    DIDR0 |= ADC0D;
 }
 
 void input_wait_for_button(void) {
-	button_pressed = false;
-	while (!input_button_pressed()) {}
-	input_clear_button_pressed();
+    button_pressed = false;
+    while (!input_button_pressed()) {}
+    input_clear_button_pressed();
 }
 
 bool input_button_pressed(void) {
-	return button_pressed;
+    return button_pressed;
 }
 
 uint8_t input_last_button(void) {
-	return last_button;
+    return last_button;
 }
 
 void input_clear_button_pressed(void) {
-	button_pressed = false;
-	last_button = BUTTON_UNDEFINED;
+    button_pressed = false;
+    last_button = BUTTON_UNDEFINED;
 }
 
 void set_leds(uint8_t leds, uint8_t state) {
-		if (state == OFF) {
-			PORTA &= ~((LED_2 | LED_3 | LED_4) & leds);
-			PORTB &= ~(LED_1 & leds);
-		}
-		else if (state == ON) {
-			PORTA |= ((LED_2 | LED_3 | LED_4) & leds);
-			PORTB |= (LED_1 & leds);
-		}
+        if (state == OFF) {
+            PORTA &= ~((LED_2 | LED_3 | LED_4) & leds);
+            PORTB &= ~(LED_1 & leds);
+        }
+        else if (state == ON) {
+            PORTA |= ((LED_2 | LED_3 | LED_4) & leds);
+            PORTB |= (LED_1 & leds);
+        }
 }
 
 void configure_pot(void)

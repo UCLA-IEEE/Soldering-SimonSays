@@ -24,10 +24,10 @@
 #define FREQ_4 A6
 
 typedef struct {
-	uint16_t length;
-	uint16_t speed;
-	uint8_t mode;
-	uint8_t  pattern[MAX_GAME_LENGTH];
+    uint16_t length;
+    uint16_t speed;
+    uint8_t mode;
+    uint8_t  pattern[MAX_GAME_LENGTH];
 } game_t;
 
 void game_start(uint8_t starting_length);
