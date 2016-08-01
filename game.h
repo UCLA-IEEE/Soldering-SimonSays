@@ -1,9 +1,9 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include <stdint.h>
-#include <stdbool.h>
 #include <avr/eeprom.h>
+#include <stdbool.h>
+#include <stdint.h>
 
 #define MAX_GAME_LENGTH 50
 
@@ -18,10 +18,10 @@
 #define MODE_FREE_PLAY 3
 #define MODE_NONE
 
-#define FREQ_1 C6
-#define FREQ_2 E6
-#define FREQ_3 G6
-#define FREQ_4 A6
+#define FREQ_1 TONE_C6
+#define FREQ_2 TONE_E6
+#define FREQ_3 TONE_G6
+#define FREQ_4 TONE_A6
 
 typedef struct {
     uint16_t length;
@@ -35,7 +35,8 @@ void game_free_play(void);
 void game_over(void);
 void game_victory(void);
 void game_start_melody(void);
-void power_up_melody(void);
+void game_power_up_melody(void);
+void game_surprise_melody(void);
 void game_display_pattern(void);
 void game_display_segment(uint8_t color);
 void game_button_segment(uint8_t color);
