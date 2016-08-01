@@ -1,32 +1,32 @@
 #ifndef INPUT_H
 #define INPUT_H
 
-#include <stdint.h>
 #include <stdbool.h>
+#include <stdint.h>
 
-#define ON  1
-#define OFF 0
+#define ON                  (1)
+#define OFF                 (0)
 
 // PORT A
-#define BUTTON_2 0x08
-#define BUTTON_3 0x80
-#define BUTTON_4 0x10
-#define LED_2    0x02
-#define LED_3    0x40
-#define LED_4    0x20
-#define POT      0x01
-#define POWER_LED 0x01
+#define BUTTON_2            (0x08)
+#define BUTTON_3            (0x80)
+#define BUTTON_4            (0x10)
+#define LED_2               (0x02)
+#define LED_3               (0x40)
+#define LED_4               (0x20)
+#define POT                 (0x01)
+#define POWER_LED           (0x01)
 
 // PORT B
-#define LED_1     0x01
-#define BUTTON_1 0x02
+#define LED_1               (0x01)
+#define BUTTON_1            (0x02)
 
 #define ALL_LEDS (LED_1 | LED_2 | LED_3 | LED_4)
 
-#define DEBOUNCE_TIME_MS 40
-#define MAX_POT_VALUE    255
+#define DEBOUNCE_TIME_MS    (40)
+#define MAX_POT_VALUE       (255)
 
-#define BUTTON_UNDEFINED 0xFF
+#define BUTTON_UNDEFINED    (0xFF)
 
 void input_init(void);
 void input_wait_for_button(void);

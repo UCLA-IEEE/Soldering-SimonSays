@@ -23,7 +23,8 @@ ISR(PCINT0_vect)        // interrupt service routine
     GIFR |= (1<<PCIF0);
 }
 
-ISR(PCINT1_vect) {
+ISR(PCINT1_vect)
+{
     _delay_ms(DEBOUNCE_TIME_MS);
     if (PINB & BUTTON_1)
         last_button = BUTTON_1;
@@ -32,7 +33,8 @@ ISR(PCINT1_vect) {
     GIFR |= (1<<PCIF1);
 }
 
-void input_init(void) {
+void input_init(void)
+{
     button_pressed = false;
 
     DDRA   |= LED_2 | LED_3 | LED_4;
@@ -50,31 +52,38 @@ void input_init(void) {
     DIDR0 |= ADC0D;
 }
 
-void input_wait_for_button(void) {
+void input_wait_for_button(void)
+{
     button_pressed = false;
-    while (!input_button_pressed()) {}
+    while (!input_button_pressed());
     input_clear_button_pressed();
 }
 
-bool input_button_pressed(void) {
+bool input_button_pressed(void)
+{
     return button_pressed;
 }
 
-uint8_t input_last_button(void) {
+uint8_t input_last_button(void)
+{
     return last_button;
 }
 
-void input_clear_button_pressed(void) {
+void input_clear_button_pressed(void)
+{
     button_pressed = false;
     last_button = BUTTON_UNDEFINED;
 }
 
-void set_leds(uint8_t leds, uint8_t state) {
-        if (state == OFF) {
+void set_leds(uint8_t leds, uint8_t state)
+{
+        if (state == OFF)
+        {
             PORTA &= ~((LED_2 | LED_3 | LED_4) & leds);
             PORTB &= ~(LED_1 & leds);
         }
-        else if (state == ON) {
+        else if (state == ON)
+        {
             PORTA |= ((LED_2 | LED_3 | LED_4) & leds);
             PORTB |= (LED_1 & leds);
         }
