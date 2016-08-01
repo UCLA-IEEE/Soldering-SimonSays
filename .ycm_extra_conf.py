@@ -165,6 +165,16 @@ def FlagsForFile( filename, **kwargs ):
       compilation_info.compiler_flags_,
       compilation_info.compiler_working_dir_ )
 
+    removal_list = []
+    for flag in final_flags:
+        if flag.startswith('-m'):
+            removal_list.append(flag)
+        if flag.startswith('-f'):
+            removal_list.append(flag)
+
+    for flag in removal_list:
+        final_flags.remove(flag)
+
     # NOTE: This is just for YouCompleteMe; it's highly likely that your project
     # does NOT need to remove the stdlib flag. DO NOT USE THIS IN YOUR
     # ycm_extra_conf IF YOU'RE NOT 100% SURE YOU NEED IT.

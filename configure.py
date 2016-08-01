@@ -5,15 +5,16 @@ import os, sys
 
 source_dirs = [
         ".",
-        "/home/kbalke/Tools/Atmel/avr8-gnu-toolchain-linux_x86_64/avr/include"]
+        "/usr/lib/avr/x86_64-linux-gnu/include",
+        "/usr/lib/avr/include"
+        ]
 
 include_dirs = [
         ]
 
 libraries = [
-        "/home/kbalke/Tools/Atmel/avr8-gnu-toolchain-linux_x86_64/avr/lib/avr25/libc.a",
-        "/home/kbalke/Tools/Atmel/avr8-gnu-toolchain-linux_x86_64/avr/lib/avr25/libm.a",
-        "/home/kbalke/Tools/Atmel/avr8-gnu-toolchain-linux_x86_64/avr/lib/avr25/libattiny84a.a",
+        "/usr/lib/avr/lib/avr25/libc.a",
+        "/usr/lib/avr/lib/avr25/libm.a"
         ]
 
 defines = [
@@ -99,7 +100,7 @@ with open("build.ninja", "w") as buildfile:
 
     sources = get_sources()
     map(cc, filter(lambda x : x.endswith(".c"), sources))
-    map(cxx, filter(lambda x : x.endswith(".cxx"), sources))
+    map(cxx, filter(lambda x : x.endswith(".cpp"), sources))
 
     cl("main.elf", objects)
 
